@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BQ Burgers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid heading">
+        <div class="row">
+            <div class="col-xxl-3 col-xl-1 col-lg-2 col-md-1 col-sm col-xs"></div>
+            <div class="col-xxl-2 col-xl-3 col-lg col-md col-sm col-xs d-xl-block d-lg-none d-md-none d-sm-none">
+                <p>
+                    <img src="Untitled-2.png" alt="" width="250px" class="logo">
+                </p>
+            </div>
+            <div class="col-xxl-7 col-xl-8 col-lg-9 col-md-10 col-sm col-xs">
+                <h1 id="headtitle">BQ Burgers</h1>        
+            </div>
+        </div>
+    </div>
+    <p></p>
+    <div class="container-fluid body">
+        <div class="row">
+            <div class="col-xxl-1 col-xl col-lg-3 col-md-2 col-sm-1 col-xs d-xxl-block d-xl-none"></div>
+            <div class="col-xxl-3 col-xl-4 col-lg-1 col-md-1 col-sm-1 col-xs d-xl-block d-lg-block d-md-block d-sm-block imagebg">
+                <img src="OIP (4).jpeg" alt="" class="bodyimage">
+            </div>
+            <div class="col-xxl-3 col-xl-4 col-lg-5 col-md-6 col-sm col-xs mainmbg">
+                <p>
+                    <button type="button" class="btn btn-danger manage" onclick="Manage()">Manage Inventory</button>
+                </p>
+                <p>
+                    <button type="button" class="btn btn-danger acash" onclick="CAdd()">Add Cashier</button>
+                </p>
+                <p>
+                    <button type="button" class="btn btn-danger ucash" onclick="CUpdate()">Update Cashier</button>
+                </p>
+                <p>
+                    <button type="button" class="btn btn-danger vcash" onclick="CView()">View Cashier</button>
+                </p>
+                <p>
+                    <button type="button" class="btn btn-danger generate">Genarate Reports</button>
+                </p>
+            </div>
+            <div class="col-xxl-3 col-xl-4 col-lg col-md col-sm col-xs d-xxl-block d-xl-block d-lg-none d-md-none d-sm-none imagebg">
+                <img src="OIP (4).jpeg" alt="" class="bodyimage">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-5"></div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger exitb" onclick="Exit()">Logout</button> 
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
