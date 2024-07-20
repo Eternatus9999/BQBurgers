@@ -9,33 +9,38 @@ let search;
 let Cashier;
 
 generate();
+load();
 
-if(document.getElementById("result")!=null){
-    let tblCustomer = document.getElementById("result");
-    let tblBody = `<thead class="thead-dark table-dark">
-                    <tr>
-                        <th>Cashier ID</th>
-                        <th>Cashier Name</th>
-                        <th>Cashier Phone</th>
-                        <th>Cashier Birthday</th>
-                        <th>Cashier Email</th>
-                        <th>Cashier Address</th>
-                    </tr>
-                </thead>`;
-    let Temp = JSON.parse(localStorage.getItem("Cashier")) || [];
-    Temp.forEach(element =>{
-        tblBody+=`<tbody class="table" id="customertablebody">
+function load(){
+    if(document.getElementById("result")!=null){
+        let tblCustomer = document.getElementById("result");
+        let tblBody = `<thead class="thead-dark table-dark">
                         <tr>
-                            <td> ${element.Cid}</td>
-                            <td> ${element.Cname}</td>
-                            <td> ${element.Cphone}</td>
-                            <td> ${element.Cbday}</td>
-                            <td> ${element.Cemail}</td>
-                            <td> ${element.Caddress}</td>
+                            <th></th>
+                            <th>Cashier ID</th>
+                            <th>Cashier Name</th>
+                            <th>Cashier Phone</th>
+                            <th>Cashier Birthday</th>
+                            <th>Cashier Email</th>
+                            <th>Cashier Address</th>
                         </tr>
                     </thead>`;
-    });
-    tblCustomer.innerHTML = tblBody;
+        let Temp = JSON.parse(localStorage.getItem("Cashier")) || [];
+        Temp.forEach(element =>{
+            tblBody+=`<tbody class="table" id="customertablebody">
+                            <tr>
+                                <td><input type="Checkbox" id="${element.Cid}"></td>
+                                <td> ${element.Cid}</td>
+                                <td> ${element.Cname}</td>
+                                <td> ${element.Cphone}</td>
+                                <td> ${element.Cbday}</td>
+                                <td> ${element.Cemail}</td>
+                                <td> ${element.Caddress}</td>
+                            </tr>
+                        </thead>`;
+        });
+        tblCustomer.innerHTML = tblBody;
+    }
 }
 
 function generate(){
@@ -85,15 +90,15 @@ function Add(){
 }
 
 function Delete() {
-    temp = JSON.parse(localStorage.getItem("Cashier"))|| [];
-    for (let i = 0; i < temp.length; i++) {
-        if(temp[i].Cname == search || temp[i].Cid == search){
+    temp = JSON.parse(localStorage.getItem("Cashier")) || [];
+    for (let i = 0; i < temp.length; i++){
+        if(document.getElementById(temp[i].Cid).checked){
             temp.splice(i,1);
-            break;
+            i--;
         }
     }
     localStorage.setItem("Cashier",JSON.stringify(temp));
-    clearInput();
+    load();
     window.alert("Delete Successfull");
 }
 

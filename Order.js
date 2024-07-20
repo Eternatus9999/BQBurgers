@@ -17,8 +17,8 @@ generate();
 load();
 
 if (document.getElementById("oneresult") != null) {
-    let Total =0;
-    let NetTotal =0;
+    let Total = 0;
+    let NetTotal = 0;
     let tblCustomer = document.getElementById("oneresult");
     let tblBody = `<thead class="thead-dark table-dark">
                         <tr>
@@ -33,21 +33,21 @@ if (document.getElementById("oneresult") != null) {
     let Temp = JSON.parse(localStorage.getItem("viweorder"));
     Temp.forEach(element => {
         Total += Number(element.Totalprice);
-        NetTotal += Number(element.Netprice); 
+        NetTotal += Number(element.Netprice);
         tblBody += `<tbody class="table" id="customertablebody">
                                     <tr>
                                         <td>${element.Itid}</td>
                                         <td>${element.Itname}</td>
                                         <td>${element.price}</td>
                                         <td>${element.qty}</td>
-                                        <td>${element.Netprice}</td>
                                         <td>${element.Totalprice}</td>
+                                        <td>${element.Netprice}</td>
                                     </tr>`;
     });
     tblBody += `    <tr>
                         <td colspan="4">Total</td>
-                        <td>${NetTotal}</td>
                         <td>${Total}</td>
+                        <td>${NetTotal}</td>
                     </tr>
                 </tbody>`;
     tblCustomer.innerHTML = tblBody;
@@ -199,12 +199,19 @@ function Add() {
                     if (temp[i].Itname == search || temp[i].Itid == search) {
                         Itid = temp[i].Itid;
                         Itname = temp[i].Itname;
-                        price = temp[i].Itprice;
-                        Totalprice = calculate([{ Itid, qty }]);
-                        Netprice = Number((qty * price) - Totalprice);
+                        let price = temp[i].Itprice;
+                        Netprice = calculate([{ Itid, qty }]);
+                        Totalprice = Number((qty * price) - Netprice);
                         temporder = { Itid, Itname, qty, price, Netprice, Totalprice };
-                        Order.push(temporder);
-                        break;
+                        if (temp[i].Itqty < qty) {
+                            window.alert("Dosn't have that much in the stock");
+                            True = false;
+                        }
+                        else {
+                            Order.push(temporder);
+                            True = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -214,16 +221,26 @@ function Add() {
                         if (document.getElementById(temp[i].Itid).checked) {
                             Itid = temp[i].Itid;
                             Itname = temp[i].Itname;
-                            price = temp[i].Itprice;
-                            Totalprice = calculate([{ Itid, qty }]);
-                            Netprice = Number((qty * price));
+                            let price = temp[i].Itprice;
+                            Netprice = calculate([{ Itid, qty }]);
+                            Totalprice = Number((qty * price));
                             temporder = { Itid, Itname, qty, price, Netprice, Totalprice };
-                            Order.push(temporder);
+                            if (temp[i].Itqty < qty) {
+                                window.alert("Dosn't have that much in the stock");
+                                True = false;
+                            }
+                            else {
+                                Order.push(temporder);
+                                True = true;
+                            }
                         }
                     }
                 }
             }
-            document.getElementById("qty").value = "";
+            if (True) {
+                document.getElementById("qty").value = "";
+                window.alert("Item added successfully");
+            }
         }
         else {
             window.alert("Customer doesn't exists");
@@ -486,8 +503,8 @@ function showTotal(order) {
         temp = JSON.parse(localStorage.getItem("Item"))
         for (let i = 0; i < temp.length; i++) {
             if (element.Itid == temp[i].Itid) {
-                txt += temp[i].Itname + " Rs." + temp[i].Itprice + " " + element.qty + " Rs." + element.Totalprice + "\n";
-                total += Number(element.Totalprice);
+                txt += temp[i].Itname + " Rs." + temp[i].Itprice + " " + element.qty + " Rs." + element.Netprice + "\n";
+                total += Number(element.Netprice);
             }
         }
     });
@@ -539,6 +556,90 @@ function ViewSearch() {
     }
 }
 
-function UpdateSearch(){
-    
+function UpdateSearch() {
+    search = document.getElementById("Username").value;
+    temp = JSON.parse(localStorage.getItem("Order")) || [];
+    temp.forEach(element => {
+        if (search == element.Orid || search == element.Cuid) {
+            document.getElementById("Cuid").innerHTML = element.Cuid;
+            document.getElementById("Orid").innerHTML = element.Orid;
+            let tblCustomer = document.getElementById("result");
+            let tblBody = `<thead class="thead-dark table-dark">
+                        <tr>
+                            <th></th>
+                            <th>Item ID</th>
+                            <th>Item name</th>
+                            <th>Price Rs.</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>`;
+
+            let Temp = element.Order;
+            Temp.forEach(element => {
+                tblBody += `<tbody class="table" id="customertablebody">
+                                    <tr>
+                                        <td><input type="Checkbox" id="${element.Itname}"></td>
+                                        <td>${element.Itid}</td>
+                                        <td>${element.Itname}</td>
+                                        <td>${element.price}</td>
+                                        <td><input class="qty" type="number" id="${element.Itid}" value="${element.qty}"></td>
+                                    </tr>`;
+            });
+            tblCustomer.innerHTML = tblBody;
+        }
+    });
+}
+
+function Update() {
+    search = document.getElementById("Username").value;
+    temporder = JSON.parse(localStorage.getItem("Order")) || [];
+    temporder.forEach(element => {
+        if (search == element.Orid || search == element.Cuid) {
+            let Temp = element.Order;
+            for (let i = 0; i < Temp.length; i++) {
+                const element = Temp[i];
+                price = Number(element.Totalprice / element.qty);
+                netprice = Number(element.Netprice / element.qty);
+                element.qty = document.getElementById(element.Itid).value;
+                qty = document.getElementById(element.Itid).value;
+                element.Totalprice = price * qty;
+                element.Netprice = netprice * qty;
+
+            }
+            for (let i = 0; i < Temp.length; i++) {
+                const element = Temp[i];
+                if (document.getElementById(element.Itname).checked) {
+                    Temp.splice(i, 1);
+                    i--;
+                }
+            }
+            let total = 0;
+            for (let i = 0; i < Temp.length; i++) {
+                const element = Temp[i];
+                total += element.Netprice
+            }
+            element.Price = total;
+            element.Order = Temp;
+            document.getElementById("Cuid").innerHTML = "";
+            document.getElementById("Orid").innerHTML = "";
+            document.getElementById("Username").value = "";
+            document.getElementById("result").innerHTML = `<thead class="thead-dark table-dark">
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>Item ID</th>
+                                                                    <th>Item name</th>
+                                                                    <th>Price Rs.</th>
+                                                                    <th>Qty</th>
+                                                                </tr>
+                                                            </thead>`;
+            window.alert("Update Successfull");
+        }
+    });
+    for(let i=0; i<temporder; i++){
+        if(temporder[i].Order == []){
+            temporder.splice(i,1);
+            i--;
+        }
+    };
+    localStorage.setItem("Order", JSON.stringify(temporder));
 }

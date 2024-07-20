@@ -83,6 +83,7 @@ function OAdd(){
 }
 function OView(){
     window.location.href="UserViewOrder.html";
+    localStorage.removeItem("viweorder");
 }
 function OUpdate(){
     window.location.href="UserUpdateOrder.html";
@@ -126,9 +127,9 @@ function CView(){
 function CUpdate(){
     window.location.href="AdminUpdateCashier.html";
 }
-function Cdelete() {
-    window.location.href="AdminDeleteCashier.html";
-}
 function CuUpdate(){
     window.location.href="UserCustomerUpdate.html";
+}
+function Generaterepo(){
+    window.location.href="AdminDeleteCashier.html";
 }
