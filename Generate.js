@@ -360,10 +360,11 @@ Ord = [
         Price: 26287.5
     }
 ];
-localStorage.setItem("Ord",JSON.stringify(Ord));
+
+localStorage.setItem("Ord",JSON.stringify(Ord)); //to check the validation set the item key name to Order in this line
 
 function MonthlyGenerate() {
-    temp = checkmonth(JSON.parse(localStorage.getItem("Ord")));
+    temp = checkmonth(JSON.parse(localStorage.getItem("Order")));
     var prop = {
         outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
         returnJsPDFDocObject: true,
@@ -433,9 +434,9 @@ function MonthlyGenerate() {
             ],
             table: Array.from(Array(temp.length), (item, index) => ([
                 index + 1,
-                String(temp[index].Orid),
-                String(temp[index].date),
-                String(temp[index].Price)
+                temp[index].Orid,
+                temp[index].date,
+                temp[index].Price
             ])),
             additionalRows: [{
                 col1: 'Total:',
@@ -473,7 +474,7 @@ function MonthlyGenerate() {
 }
 
 function AnnualGenerate() {
-    temp = checkyear(JSON.parse(localStorage.getItem("Ord")));
+    temp = checkyear(JSON.parse(localStorage.getItem("Order")));
     var prop = {
         outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
         returnJsPDFDocObject: true,
@@ -543,9 +544,9 @@ function AnnualGenerate() {
             ],
             table: Array.from(Array(temp.length), (item, index) => ([
                 index + 1,
-                String(temp[index].Orid),
-                String(temp[index].date),
-                String(temp[index].Price)
+                temp[index].Orid,
+                temp[index].date,
+                temp[index].Price
             ])),
             additionalRows: [{
                 col1: 'Total:',
@@ -652,9 +653,9 @@ function ItemCount() {
             ],
             table: Array.from(Array(temp.length), (item, index) => ([
                 index + 1,
-                String(temp[index].Itid),
-                String(temp[index].Itname),
-                String(temp[index].Itqty)
+                temp[index].Itid,
+                temp[index].Itname,
+                temp[index].Itqty
             ])),
             additionalRows: [{
                 col1: 'Total:',
@@ -691,7 +692,7 @@ function ItemCount() {
 }
 
 function topCustomer() {
-    temp = sortCustomer(JSON.parse(localStorage.getItem("Ord")));
+    temp = sortCustomer(JSON.parse(localStorage.getItem("Order")));
     var prop = {
         outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
         returnJsPDFDocObject: true,
@@ -762,10 +763,10 @@ function topCustomer() {
             ],
             table: Array.from(Array(temp.length), (item, index) => ([
                 index + 1,
-                String(temp[index].id),
-                String(temp[index].name),
-                String(temp[index].qty),
-                String(temp[index].total)
+                temp[index].id,
+                temp[index].name,
+                temp[index].qty,
+                temp[index].total
             ])),
             additionalRows: [{
                 col1: 'Total:',
