@@ -1,17 +1,57 @@
 let title = "";
-let temp = "";
+let temp = [];
 let date = "";
 
 const currentdate = new Date();
 const currentYear = currentdate.getFullYear();
 const currentMonthValue = currentdate.getMonth() + 1;
+let month = "";
 
-Ord =[
+switch (currentMonthValue) {
+    case 1:
+        month = "January";
+        break;
+    case 2:
+        month = "February";
+        break;
+    case 3:
+        month = "March";
+        break;
+    case 4:
+        month = "April";
+        break;
+    case 5:
+        month = "May";
+        break;
+    case 6:
+        month = "June";
+        break;
+    case 7:
+        month = "July";
+        break;
+    case 8:
+        month = "August";
+        break;
+    case 9:
+        month = "September";
+        break;
+    case 10:
+        month = "Octomber";
+        break;
+    case 11:
+        month = "November";
+        break;
+    case 12:
+        month = "December";
+        break;
+}
+
+Ord = [
     {
-        "index": 1,
-        "Cuid": "Cu0001",
-        "Orid": "OR1001",
-        "Order": [
+        index: 1,
+        Cuid: "Cu0001",
+        Orid: "OR1001",
+        Order: [
             {
                 "Itid": "IT1005",
                 "Itname": "Chicken Burger(Regular)",
@@ -21,14 +61,14 @@ Ord =[
                 "Totalprice": 1600
             }
         ],
-        "date": "2024-7-20",
-        "Price": 1280
+        date: "2024-7-20",
+        Price: 1280.5
     },
     {
-        "index": 2,
-        "Cuid": "Cu0001",
-        "Orid": "OR1002",
-        "Order": [
+        index: 2,
+        Cuid: "Cu0002",
+        Orid: "OR1002",
+        Order: [
             {
                 "Itid": "IT1031",
                 "Itname": "Chicken Penne Pasta",
@@ -54,14 +94,14 @@ Ord =[
                 "Totalprice": 2000
             }
         ],
-        "date": "2024-7-10",
-        "Price": 14228
+        date: "2024-7-10",
+        Price: 14228
     },
     {
-        "index": 3,
-        "Cuid": "Cu0001",
-        "Orid": "OR1003",
-        "Order": [
+        index: 3,
+        Cuid: "Cu0003",
+        Orid: "OR1003",
+        Order: [
             {
                 "Itid": "IT1037",
                 "Itname": "Fried Chicken(Small)",
@@ -71,14 +111,14 @@ Ord =[
                 "Totalprice": 2400
             }
         ],
-        "date": "2024-7-5",
-        "Price": 2400
+        date: "2024-7-5",
+        Price: 2400
     },
     {
-        "index": 4,
-        "Cuid": "Cu0001",
-        "Orid": "OR1004",
-        "Order": [
+        index: 4,
+        Cuid: "Cu0001",
+        Orid: "OR1004",
+        Order: [
             {
                 "Itid": "IT1003",
                 "Itname": "Turkey Burger",
@@ -120,14 +160,14 @@ Ord =[
                 "Totalprice": 4500
             }
         ],
-        "date": "2024-8-20",
-        "Price": 26287.5
+        date: "2024-8-20",
+        Price: 26287.5
     },
     {
-        "index": 5,
-        "Cuid": "Cu0001",
-        "Orid": "OR1005",
-        "Order": [
+        index: 5,
+        Cuid: "Cu0003",
+        Orid: "OR1005",
+        Order: [
             {
                 "Itid": "IT1003",
                 "Itname": "Turkey Burger",
@@ -169,14 +209,14 @@ Ord =[
                 "Totalprice": 4500
             }
         ],
-        "date": "2024-8-10",
-        "Price": 26287.5
+        date: "2024-8-10",
+        Price: 26287.5
     },
     {
-        "index": 5,
-        "Cuid": "Cu0001",
-        "Orid": "OR1005",
-        "Order": [
+        index: 5,
+        Cuid: "Cu0003",
+        Orid: "OR1005",
+        Order: [
             {
                 "Itid": "IT1003",
                 "Itname": "Turkey Burger",
@@ -218,14 +258,14 @@ Ord =[
                 "Totalprice": 4500
             }
         ],
-        "date": "2025-8-20",
-        "Price": 26287.5
+        date: "2025-8-20",
+        Price: 26287.5
     },
     {
-        "index": 5,
-        "Cuid": "Cu0001",
-        "Orid": "OR1005",
-        "Order": [
+        index: 5,
+        Cuid: "Cu0003",
+        Orid: "OR1005",
+        Order: [
             {
                 "Itid": "IT1003",
                 "Itname": "Turkey Burger",
@@ -267,14 +307,14 @@ Ord =[
                 "Totalprice": 4500
             }
         ],
-        "date": "2025-7-10",
-        "Price": 26287.5
+        date: "2025-7-10",
+        Price: 26287.5
     },
     {
-        "index": 6,
-        "Cuid": "Cu0001",
-        "Orid": "OR1006",
-        "Order": [
+        index: 6,
+        Cuid: "Cu0003",
+        Orid: "OR1006",
+        Order: [
             {
                 "Itid": "IT1003",
                 "Itname": "Turkey Burger",
@@ -316,152 +356,508 @@ Ord =[
                 "Totalprice": 4500
             }
         ],
-        "date": "2025-5-17",
-        "Price": 26287.5
+        date: "2025-5-17",
+        Price: 26287.5
     }
-]
+];
+localStorage.setItem("Ord",JSON.stringify(Ord));
 
 function MonthlyGenerate() {
-    temp = checkmonth(Ord);
-    // temp = JSON.parse(localStorage.getItem("Order"));
-    var pdfObject = jsPDFInvoiceTemplate.default(MonthlyReport);
+    temp = checkmonth(JSON.parse(localStorage.getItem("Ord")));
+    var prop = {
+        outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
+        returnJsPDFDocObject: true,
+        fileName: "Monthly Report of " + month + "",
+        orientationLandscape: false,
+        compress: true,
+        logo: {
+            src: "Untitled-4.png",
+            type: 'PNG', //optional, when src= data:uri (nodejs case)
+            width: 40, //aspect ratio = width/height
+            height: 30,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        stamp: {
+            inAllPages: true, //by default = false, just in the last page
+            src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+            type: 'JPG', //optional, when src= data:uri (nodejs case)
+            width: 20, //aspect ratio = width/height
+            height: 20,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        business: {
+            name: "BQ Burgers",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 7732",
+            email: "BQBurgers@gmail.com",
+            website: "www.BQBurgers.com",
+        },
+        contact: {
+            label: "Invoice issued for:",
+            name: "Client Name",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 77322",
+            email: "BQBurgers@gmail.com",
+            otherInfo: "www.BQBurgers.com",
+        },
+        invoice: {
+            invDate: currentMonthValue + "/" + currentYear,
+            headerBorder: false,
+            tableBodyBorder: false,
+            header: [
+                {
+                    title: "#",
+                    style: {
+                        width: 10
+                    }
+                },
+                {
+                    title: "Order ID",
+                    style: {
+                        width: 50
+                    }
+                },
+                {
+                    title: "Order Date",
+                    style: {
+                        width: 80
+                    }
+                },
+                { title: "Total" }
+            ],
+            table: Array.from(Array(temp.length), (item, index) => ([
+                index + 1,
+                String(temp[index].Orid),
+                String(temp[index].date),
+                String(temp[index].Price)
+            ])),
+            additionalRows: [{
+                col1: 'Total:',
+                col2: '145,250.50',
+                col3: 'ALL',
+                style: {
+                    fontSize: 14 //optional, default 12
+                }
+            },
+            {
+                col1: 'VAT:',
+                col2: '20',
+                col3: '%',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            },
+            {
+                col1: 'SubTotal:',
+                col2: '116,199.90',
+                col3: 'ALL',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            }],
+        },
+        footer: {
+            text: "The report is created on a computer and is valid without the signature and stamp.",
+        },
+        pageEnable: true,
+        pageLabel: "Page ",
+    };
+    var pdfObject = jsPDFInvoiceTemplate.default(prop);
+
 }
 
 function AnnualGenerate() {
-    console.log(checkyear(Ord));
-    // temp = checkyear(JSON.parse(localStorage.getItem("Order")));
-    //var pdfObject = jsPDFInvoiceTemplate.default(props);
+    temp = checkyear(JSON.parse(localStorage.getItem("Ord")));
+    var prop = {
+        outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
+        returnJsPDFDocObject: true,
+        fileName: "Anual report of " + currentYear,
+        orientationLandscape: false,
+        compress: true,
+        logo: {
+            src: "Untitled-4.png",
+            type: 'PNG', //optional, when src= data:uri (nodejs case)
+            width: 40, //aspect ratio = width/height
+            height: 30,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        stamp: {
+            inAllPages: true, //by default = false, just in the last page
+            src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+            type: 'JPG', //optional, when src= data:uri (nodejs case)
+            width: 20, //aspect ratio = width/height
+            height: 20,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        business: {
+            name: "BQ Burgers",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 7732",
+            email: "BQBurgers@gmail.com",
+            website: "www.BQBurgers.com",
+        },
+        contact: {
+            label: "Invoice issued for:",
+            name: "Client Name",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 77322",
+            email: "BQBurgers@gmail.com",
+            otherInfo: "www.BQBurgers.com",
+        },
+        invoice: {
+            invDate: String(currentYear),
+            headerBorder: false,
+            tableBodyBorder: false,
+            header: [
+                {
+                    title: "#",
+                    style: {
+                        width: 10
+                    }
+                },
+                {
+                    title: "Order ID",
+                    style: {
+                        width: 50
+                    }
+                },
+                {
+                    title: "Order Date",
+                    style: {
+                        width: 80
+                    }
+                },
+                { title: "Total" }
+            ],
+            table: Array.from(Array(temp.length), (item, index) => ([
+                index + 1,
+                String(temp[index].Orid),
+                String(temp[index].date),
+                String(temp[index].Price)
+            ])),
+            additionalRows: [{
+                col1: 'Total:',
+                col2: '145,250.50',
+                col3: 'ALL',
+                style: {
+                    fontSize: 14 //optional, default 12
+                }
+            },
+            {
+                col1: 'VAT:',
+                col2: '20',
+                col3: '%',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            },
+            {
+                col1: 'SubTotal:',
+                col2: '116,199.90',
+                col3: 'ALL',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            }],
+        },
+        footer: {
+            text: "The report is created on a computer and is valid without the signature and stamp.",
+        },
+        pageEnable: true,
+        pageLabel: "Page ",
+    };
+    var pdfObject = jsPDFInvoiceTemplate.default(prop);
 }
 
-function checkmonth(temp){
-    let Temp =[];
+function ItemCount() {
+    temp = JSON.parse(localStorage.getItem("Item"));
+    var prop = {
+        outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
+        returnJsPDFDocObject: true,
+        fileName: "Food Item Count",
+        orientationLandscape: false,
+        compress: true,
+        logo: {
+            src: "Untitled-4.png",
+            type: 'PNG', //optional, when src= data:uri (nodejs case)
+            width: 40, //aspect ratio = width/height
+            height: 30,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        stamp: {
+            inAllPages: true, //by default = false, just in the last page
+            src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+            type: 'JPG', //optional, when src= data:uri (nodejs case)
+            width: 20, //aspect ratio = width/height
+            height: 20,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        business: {
+            name: "BQ Burgers",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 7732",
+            email: "BQBurgers@gmail.com",
+            website: "www.BQBurgers.com",
+        },
+        contact: {
+            label: "Invoice issued for:",
+            name: "Client Name",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 77322",
+            email: "BQBurgers@gmail.com",
+            otherInfo: "www.BQBurgers.com",
+        },
+        invoice: {
+            invDate: String(currentYear),
+            headerBorder: false,
+            tableBodyBorder: false,
+            header: [
+                {
+                    title: "#",
+                    style: {
+                        width: 10
+                    }
+                },
+                {
+                    title: "Item ID",
+                    style: {
+                        width: 50
+                    }
+                },
+                {
+                    title: "Name",
+                    style: {
+                        width: 80
+                    }
+                },
+                { title: "Quantity" }
+            ],
+            table: Array.from(Array(temp.length), (item, index) => ([
+                index + 1,
+                String(temp[index].Itid),
+                String(temp[index].Itname),
+                String(temp[index].Itqty)
+            ])),
+            additionalRows: [{
+                col1: 'Total:',
+                col2: '145,250.50',
+                col3: 'ALL',
+                style: {
+                    fontSize: 14 //optional, default 12
+                }
+            },
+            {
+                col1: 'VAT:',
+                col2: '20',
+                col3: '%',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            },
+            {
+                col1: 'SubTotal:',
+                col2: '116,199.90',
+                col3: 'ALL',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            }],
+        },
+        footer: {
+            text: "The report is created on a computer and is valid without the signature and stamp.",
+        },
+        pageEnable: true,
+        pageLabel: "Page ",
+    };
+    var pdfObject = jsPDFInvoiceTemplate.default(prop);
+}
+
+function topCustomer() {
+    temp = sortCustomer(JSON.parse(localStorage.getItem("Ord")));
+    var prop = {
+        outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
+        returnJsPDFDocObject: true,
+        fileName: "Best Customers",
+        orientationLandscape: false,
+        compress: true,
+        logo: {
+            src: "Untitled-4.png",
+            type: 'PNG', //optional, when src= data:uri (nodejs case)
+            width: 40, //aspect ratio = width/height
+            height: 30,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        stamp: {
+            inAllPages: true, //by default = false, just in the last page
+            src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+            type: 'JPG', //optional, when src= data:uri (nodejs case)
+            width: 20, //aspect ratio = width/height
+            height: 20,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        business: {
+            name: "BQ Burgers",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 7732",
+            email: "BQBurgers@gmail.com",
+            website: "www.BQBurgers.com",
+        },
+        contact: {
+            label: "Invoice issued for:",
+            name: "Client Name",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 77322",
+            email: "BQBurgers@gmail.com",
+            otherInfo: "www.BQBurgers.com",
+        },
+        invoice: {
+            invDate: String(currentYear),
+            headerBorder: false,
+            tableBodyBorder: false,
+            header: [
+                {
+                    title: "#",
+                    style: {
+                        width: 10
+                    }
+                },
+                {
+                    title: "Customer ID",
+                    style: {
+                        width: 50
+                    }
+                },
+                {
+                    title: "Name",
+                    style: {
+                        width: 80
+                    }
+                },
+                { title: "Order Qty" },
+                { title: "Total Price" }
+            ],
+            table: Array.from(Array(temp.length), (item, index) => ([
+                index + 1,
+                String(temp[index].id),
+                String(temp[index].name),
+                String(temp[index].qty),
+                String(temp[index].total)
+            ])),
+            additionalRows: [{
+                col1: 'Total:',
+                col2: '145,250.50',
+                col3: 'ALL',
+                style: {
+                    fontSize: 14 //optional, default 12
+                }
+            },
+            {
+                col1: 'VAT:',
+                col2: '20',
+                col3: '%',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            },
+            {
+                col1: 'SubTotal:',
+                col2: '116,199.90',
+                col3: 'ALL',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            }],
+        },
+        footer: {
+            text: "The report is created on a computer and is valid without the signature and stamp.",
+        },
+        pageEnable: true,
+        pageLabel: "Page ",
+    };
+    var pdfObject = jsPDFInvoiceTemplate.default(prop);
+}
+
+function checkmonth(temp) {
+    let index = 1;
+    let Temp = [];
     temp.forEach(element => {
         const year = Number(element.date.substring(0, 4));
         const month = Number(element.date.substring(5, 6));
         const day = Number(element.date.substring(8));
-        if(year == currentYear && month == currentMonthValue){
+        if (year == currentYear && month == currentMonthValue) {
             Temp.push(element);
         }
     });
     return Temp;
 }
 
-function checkyear(temp){
-    let Temp =[];
+function checkyear(temp) {
+    let Temp = [];
     temp.forEach(element => {
         const year = Number(element.date.substring(0, 4));
         const month = Number(element.date.substring(5, 6));
         const day = Number(element.date.substring(8));
-        if(year == currentYear){
+        if (year == currentYear) {
             Temp.push(element);
         }
     });
     return Temp;
 }
 
-var MonthlyReport = {
-    outputType: jsPDFInvoiceTemplate.Save,
-    returnJsPDFDocObject: true,
-    fileName:"BQ Burgers Monthly report",
-    orientationLandscape: false,
-    compress: true,
-    logo:{
-        src: "Untitled-2.png",
-        type: 'PNG', //optional, when src= data:uri (nodejs case)
-        width: 40, //aspect ratio = width/height
-        height: 30,
-        margin: {
-            top: 0, //negative or positive num, from the current position
-            left: 0 //negative or positive num, from the current position
+function sortCustomer(order){
+    let total = 0;
+    let ordqty = 0;
+    let tempcustomer=[];
+    customer = JSON.parse(localStorage.getItem("Customer"));
+    customer.forEach(i => {
+        order.forEach(j => {
+            if(i.Cuid == j.Cuid){
+                total+=Number(j.Price);
+                ordqty++;
+            }
+        });
+        tempcustomer.push({id:i.Cuid,name:i.Cuname,qty:ordqty,total:total});
+        ordqty=0;
+        total =0;
+    });
+    for (let i = 0; i < tempcustomer.length; i++) {
+        for (let j = i; j < tempcustomer.length; j++) {
+            if(tempcustomer[i].total<tempcustomer[j].total){
+                temp = tempcustomer[i];
+                tempcustomer[i] = tempcustomer[j];
+                tempcustomer[j] =temp;
+            }
         }
-    },
-    stamp: {
-        inAllPages: true, //by default = false, just in the last page
-        src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-        type: 'JPG', //optional, when src= data:uri (nodejs case)
-        width: 20, //aspect ratio = width/height
-        height: 20,
-        margin: {
-            top: 0, //negative or positive num, from the current position
-            left: 0 //negative or positive num, from the current position
+    }
+    for (let i = 0; i < tempcustomer.length; i++) {
+        if(tempcustomer[i].total==0){
+            tempcustomer.splice(i,1);
+            i--;
         }
-    },
-    business: {
-        name: "BQ Burgers",
-        address: "Icet Panadura.",
-        phone: "(+94) 76 488 7732",
-        email: "BQBurgers@gmail.com",
-        website: "www.BQBurgers.com",
-    },
-    contact: {
-        label: "Invoice issued for:",
-        name: "Client Name",
-        address: "Icet Panadura.",
-        phone: "(+94) 76 488 77322",
-        email: "BQBurgers@gmail.com",
-        otherInfo: "www.BQBurgers.com",
-    },
-    invoice: {
-        invDate: currentMonthValue+"/"+currentYear,
-        headerBorder: false,
-        tableBodyBorder: false,
-        header: [
-            {
-                title: "#",
-                style: {
-                    width: 10
-                }
-            },
-            {
-                title: "Order ID",
-                style: {
-                    width: 50
-                }
-            },
-            {
-                title: "Order Date",
-                style: {
-                    width: 80
-                }
-            },
-            { title: "Total" }
-        ],
-        table: Array.from(Array(temp.length), (item, index) => ([
-            index + 1,
-            temp[index].Orid,
-            temp[index].date,
-            temp[index].Price
-        ])),
-        additionalRows: [{
-            col1: 'Total:',
-            col2: '145,250.50',
-            col3: 'ALL',
-            style: {
-                fontSize: 14 //optional, default 12
-            }
-        },
-        {
-            col1: 'VAT:',
-            col2: '20',
-            col3: '%',
-            style: {
-                fontSize: 10 //optional, default 12
-            }
-        },
-        {
-            col1: 'SubTotal:',
-            col2: '116,199.90',
-            col3: 'ALL',
-            style: {
-                fontSize: 10 //optional, default 12
-            }
-        }],
-        invDescLabel: "Invoice Note",
-        invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
-    },
-    footer: {
-        text: "All copyrights recieved for BQ Burgers",
-    },
-    pageEnable: true,
-    pageLabel: "Page ",
-};
+    }
+    return tempcustomer;
+}

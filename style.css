@@ -155,6 +155,18 @@ input,select{
     width: 70px;
     border-radius: 20px;
 }
+.month{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.year{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.top{
+    padding-left: 25px;
+    padding-right: 25px;
+}
 
 /* id-----------> */
 
