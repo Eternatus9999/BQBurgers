@@ -60,24 +60,20 @@ if (JSON.parse(localStorage.getItem("Item")) == null) {
 function Login() {
     let password = document.getElementById("Password").value;
     let username = document.getElementById("Username").value;
-    if (password == "Admin123") {
-        if (username == "") {
-            window.alert("Username Required");
-        }
-        else {
+    if (username != null) {
+        if (password == "Admin123") {
             window.location.href = "AdminMainMenu.html";
+            
         }
-    }
-    else if (password == "User123") {
-        if (username == "") {
-            window.alert("Username Required");
+        else if(password == "User123"){
+            window.location.href = "UserMainMenu.html";
         }
         else{
-            window.location.href = "UserMainMenu.html";
+            window.alert("Wrong Password");
         }
     }
     else {
-        window.alert("Wrong Password");
+        window.alert("Username Required");
     }
 }
 function Exit() {

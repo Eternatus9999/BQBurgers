@@ -182,7 +182,11 @@ function Place() {
         Iupdate(Order);
         generate();
         clearInput();
+        document.getElementById("result").innerHTML = "";
         Order = [];
+    }
+    else{
+        window.alert("Cart is empty");
     }
 }
 
@@ -239,12 +243,16 @@ function Add() {
             }
             if (True) {
                 document.getElementById("qty").value = "";
+                document.getElementById("result").innerHTML = "";
                 window.alert("Item added successfully");
             }
         }
         else {
             window.alert("Customer doesn't exists");
         }
+    }
+    else{
+        window.alert("No item selected");
     }
 }
 
