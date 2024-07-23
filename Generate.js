@@ -400,8 +400,7 @@ function MonthlyGenerate() {
             website: "www.BQBurgers.com",
         },
         contact: {
-            label: "Invoice issued for:",
-            name: "Client Name",
+            label: "Report issued for:",
             address: "Icet Panadura.",
             phone: "(+94) 76 488 77322",
             email: "BQBurgers@gmail.com",
@@ -510,8 +509,7 @@ function AnnualGenerate() {
             website: "www.BQBurgers.com",
         },
         contact: {
-            label: "Invoice issued for:",
-            name: "Client Name",
+            label: "Report issued for:",
             address: "Icet Panadura.",
             phone: "(+94) 76 488 77322",
             email: "BQBurgers@gmail.com",
@@ -619,8 +617,7 @@ function ItemCount() {
             website: "www.BQBurgers.com",
         },
         contact: {
-            label: "Invoice issued for:",
-            name: "Client Name",
+            label: "Report issued for:",
             address: "Icet Panadura.",
             phone: "(+94) 76 488 77322",
             email: "BQBurgers@gmail.com",
@@ -728,8 +725,7 @@ function topCustomer() {
             website: "www.BQBurgers.com",
         },
         contact: {
-            label: "Invoice issued for:",
-            name: "Client Name",
+            label: "Report issued for:",
             address: "Icet Panadura.",
             phone: "(+94) 76 488 77322",
             email: "BQBurgers@gmail.com",
