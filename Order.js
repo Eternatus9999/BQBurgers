@@ -96,6 +96,7 @@ function itemview(order) {
 }
 
 function ILoad(search) {
+    document.getElementById("result").innerHTML = "";
     temp = JSON.parse(localStorage.getItem("Item"));
     if (search != "all") {
         for (let i = 0; i < temp.length; i++) {
@@ -307,7 +308,7 @@ function Delete() {
 
 function Search() {
     search = document.getElementById("Username").value;
-    ILoad(search);
+    ILoad(search.toLowerCase());
 
 }
 
