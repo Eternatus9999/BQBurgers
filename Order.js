@@ -97,70 +97,106 @@ function itemview(order) {
 
 function ILoad(search) {
     temp = JSON.parse(localStorage.getItem("Item"));
-    for (let i = 0; i < temp.length; i++) {
-        if (temp[i].Itname == search || temp[i].Itid == search || temp[i].Itcategory == search) {
-            if (document.getElementById("result") != null) {
-                if (temp[i].Itcategory != search) {
-                    let tblCustomer = document.getElementById("result");
-                    let tblBody = `<thead class="thead-dark table-dark">
-                                <tr>
-                                    <th>Item ID</th>
-                                    <th>Item Name</th>
-                                    <th>Quantity</th>
-                                    <th>Price(Rs.)</th>
-                                    <th>Discount</th>
-                                    <th>Expire Date</th>
-                                </tr>
-                            </thead>`;
+    if (search != "all") {
+        for (let i = 0; i < temp.length; i++) {
+            if (temp[i].Itname == search || temp[i].Itid == search || temp[i].Itcategory == search) {
+                if (document.getElementById("result") != null) {
+                    if (temp[i].Itcategory != search) {
+                        let tblCustomer = document.getElementById("result");
+                        let tblBody = `<thead class="thead-dark table-dark">
+                                    <tr>
+                                        <th>Item ID</th>
+                                        <th>Item Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price(Rs.)</th>
+                                        <th>Discount</th>
+                                        <th>Expire Date</th>
+                                    </tr>
+                                </thead>`;
 
-                    tblBody += `<tbody class="table" id="customertablebody">
-                            <tr>
-                                    <td> ${temp[i].Itid}</td>
-                                    <td> ${temp[i].Itname}</td>
-                                    <td> ${temp[i].Itqty}</td>
-                                    <td> ${temp[i].Itprice}</td>
-                                    <td> ${discount(temp[i].Itdiscount)}</td>
-                                    <td style="${isexpired(temp[i].Itbday)}
-                                </tr>
-                            </tbody>`;
-                    tblCustomer.innerHTML = tblBody;
-                    oneresult = true;
+                        tblBody += `<tbody class="table" id="customertablebody">
+                                <tr>
+                                        <td> ${temp[i].Itid}</td>
+                                        <td> ${temp[i].Itname}</td>
+                                        <td> ${temp[i].Itqty}</td>
+                                        <td> ${temp[i].Itprice}</td>
+                                        <td> ${discount(temp[i].Itdiscount)}</td>
+                                        <td style="${isexpired(temp[i].Itbday)}
+                                    </tr>
+                                </tbody>`;
+                        tblCustomer.innerHTML = tblBody;
+                        oneresult = true;
+                    }
+                    else {
+                        oneresult = false;
+                        let tblCustomer = document.getElementById("result");
+                        let tblBody = `<thead class="thead-dark table-dark">
+                                            <tr>
+                                                <th></th>
+                                                <th>Item ID</th>
+                                                <th>Item Name</th>
+                                                <th>Quantity</th>
+                                                <th>Price(Rs.)</th>
+                                                <th>Discount</th>
+                                                <th>Expire Date</th>
+                                            </tr>
+                                        </thead>`;
+                        let Temp = JSON.parse(localStorage.getItem("Item"));
+                        for (let i = 0; i < Temp.length; i++) {
+                            if (Temp[i].Itcategory == search) {
+                                tblBody += `<tbody class="table" id="customertablebody">
+                                                <tr>
+                                                    <td><input type="Checkbox" id="${Temp[i].Itid}"></td>
+                                                    <td> ${Temp[i].Itid}</td>
+                                                    <td> ${Temp[i].Itname}</td>
+                                                    <td> ${Temp[i].Itqty}</td>
+                                                    <td> ${Temp[i].Itprice}</td>
+                                                    <td> ${discount(Temp[i].Itdiscount)}</td>
+                                                    <td style="${isexpired(Temp[i].Itbday)}
+                                                </tr>
+                                            </tbody>`;
+                            }
+                        };
+                        tblCustomer.innerHTML = tblBody;
+                    }
                 }
-                else {
-                    oneresult = false;
+            }
+            document.getElementById("Username").value = "";
+        }
+    }
+    else {
+        for (let i = 0; i < temp.length; i++) {
+                if (document.getElementById("result") != null) {
                     let tblCustomer = document.getElementById("result");
                     let tblBody = `<thead class="thead-dark table-dark">
-                                        <tr>
-                                            <th></th>
-                                            <th>Item ID</th>
-                                            <th>Item Name</th>
-                                            <th>Quantity</th>
-                                            <th>Price(Rs.)</th>
-                                            <th>Discount</th>
-                                            <th>Expire Date</th>
-                                        </tr>
-                                    </thead>`;
+                                            <tr>
+                                                <th></th>
+                                                <th>Item ID</th>
+                                                <th>Item Name</th>
+                                                <th>Quantity</th>
+                                                <th>Price(Rs.)</th>
+                                                <th>Discount</th>
+                                                <th>Expire Date</th>
+                                            </tr>
+                                        </thead>`;
                     let Temp = JSON.parse(localStorage.getItem("Item"));
                     for (let i = 0; i < Temp.length; i++) {
-                        if (Temp[i].Itcategory == search) {
-                            tblBody += `<tbody class="table" id="customertablebody">
-                                            <tr>
-                                                <td><input type="Checkbox" id="${Temp[i].Itid}"></td>
-                                                <td> ${Temp[i].Itid}</td>
-                                                <td> ${Temp[i].Itname}</td>
-                                                <td> ${Temp[i].Itqty}</td>
-                                                <td> ${Temp[i].Itprice}</td>
-                                                <td> ${discount(Temp[i].Itdiscount)}</td>
-                                                <td style="${isexpired(Temp[i].Itbday)}
-                                            </tr>
-                                        </tbody>`;
-                        }
+                        tblBody += `<tbody class="table" id="customertablebody">
+                                                <tr>
+                                                    <td><input type="Checkbox" id="${Temp[i].Itid}"></td>
+                                                    <td> ${Temp[i].Itid}</td>
+                                                    <td> ${Temp[i].Itname}</td>
+                                                    <td> ${Temp[i].Itqty}</td>
+                                                    <td> ${Temp[i].Itprice}</td>
+                                                    <td> ${discount(Temp[i].Itdiscount)}</td>
+                                                    <td style="${isexpired(Temp[i].Itbday)}
+                                                </tr>
+                                            </tbody>`;
                     };
                     tblCustomer.innerHTML = tblBody;
                 }
-            }
+            document.getElementById("Username").value = "";
         }
-        document.getElementById("Username").value = "";
     }
     if (document.getElementById("result").innerHTML == null) {
         window.alert("No item Found with that name or ID or category");
@@ -185,7 +221,7 @@ function Place() {
         document.getElementById("result").innerHTML = "";
         Order = [];
     }
-    else{
+    else {
         window.alert("Cart is empty");
     }
 }
@@ -251,7 +287,7 @@ function Add() {
             window.alert("Customer doesn't exists");
         }
     }
-    else{
+    else {
         window.alert("No item selected");
     }
 }
@@ -643,9 +679,9 @@ function Update() {
             window.alert("Update Successfull");
         }
     });
-    for(let i=0; i<temporder; i++){
-        if(temporder[i].Order == []){
-            temporder.splice(i,1);
+    for (let i = 0; i < temporder; i++) {
+        if (temporder[i].Order == []) {
+            temporder.splice(i, 1);
             i--;
         }
     };
