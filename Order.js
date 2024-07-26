@@ -13,6 +13,11 @@ let Itid;
 let total;
 let index = 1;
 
+const currentdate = new Date();
+const currentYear = currentdate.getFullYear();
+const currentMonthValue = currentdate.getMonth() + 1;
+let month = "";
+
 generate();
 load();
 
@@ -98,13 +103,12 @@ function itemview(order) {
 function ILoad(search) {
     document.getElementById("result").innerHTML = "";
     temp = JSON.parse(localStorage.getItem("Item"));
-    if (search != "all") {
-        for (let i = 0; i < temp.length; i++) {
-            if (temp[i].Itname == search || temp[i].Itid == search || temp[i].Itcategory == search) {
-                if (document.getElementById("result") != null) {
-                    if (temp[i].Itcategory != search) {
-                        let tblCustomer = document.getElementById("result");
-                        let tblBody = `<thead class="thead-dark table-dark">
+    for (let i = 0; i < temp.length; i++) {
+        if (temp[i].Itname == search || temp[i].Itid == search || temp[i].Itcategory == search || search == "all") {
+            if (document.getElementById("result") != null) {
+                if (temp[i].Itcategory != search && search != "all") {
+                    let tblCustomer = document.getElementById("result");
+                    let tblBody = `<thead class="thead-dark table-dark">
                                     <tr>
                                         <th>Item ID</th>
                                         <th>Item Name</th>
@@ -115,7 +119,7 @@ function ILoad(search) {
                                     </tr>
                                 </thead>`;
 
-                        tblBody += `<tbody class="table" id="customertablebody">
+                    tblBody += `<tbody class="table" id="customertablebody">
                                 <tr>
                                         <td> ${temp[i].Itid}</td>
                                         <td> ${temp[i].Itname}</td>
@@ -125,49 +129,11 @@ function ILoad(search) {
                                         <td style="${isexpired(temp[i].Itbday)}
                                     </tr>
                                 </tbody>`;
-                        tblCustomer.innerHTML = tblBody;
-                        oneresult = true;
-                    }
-                    else {
-                        oneresult = false;
-                        let tblCustomer = document.getElementById("result");
-                        let tblBody = `<thead class="thead-dark table-dark">
-                                            <tr>
-                                                <th></th>
-                                                <th>Item ID</th>
-                                                <th>Item Name</th>
-                                                <th>Quantity</th>
-                                                <th>Price(Rs.)</th>
-                                                <th>Discount</th>
-                                                <th>Expire Date</th>
-                                            </tr>
-                                        </thead>`;
-                        let Temp = JSON.parse(localStorage.getItem("Item"));
-                        for (let i = 0; i < Temp.length; i++) {
-                            if (Temp[i].Itcategory == search) {
-                                tblBody += `<tbody class="table" id="customertablebody">
-                                                <tr>
-                                                    <td><input type="Checkbox" id="${Temp[i].Itid}"></td>
-                                                    <td> ${Temp[i].Itid}</td>
-                                                    <td> ${Temp[i].Itname}</td>
-                                                    <td> ${Temp[i].Itqty}</td>
-                                                    <td> ${Temp[i].Itprice}</td>
-                                                    <td> ${discount(Temp[i].Itdiscount)}</td>
-                                                    <td style="${isexpired(Temp[i].Itbday)}
-                                                </tr>
-                                            </tbody>`;
-                            }
-                        };
-                        tblCustomer.innerHTML = tblBody;
-                    }
+                    tblCustomer.innerHTML = tblBody;
+                    oneresult = true;
                 }
-            }
-            document.getElementById("Username").value = "";
-        }
-    }
-    else {
-        for (let i = 0; i < temp.length; i++) {
-                if (document.getElementById("result") != null) {
+                else {
+                    oneresult = false;
                     let tblCustomer = document.getElementById("result");
                     let tblBody = `<thead class="thead-dark table-dark">
                                             <tr>
@@ -182,7 +148,8 @@ function ILoad(search) {
                                         </thead>`;
                     let Temp = JSON.parse(localStorage.getItem("Item"));
                     for (let i = 0; i < Temp.length; i++) {
-                        tblBody += `<tbody class="table" id="customertablebody">
+                        if (Temp[i].Itcategory == search || search == "all") {
+                            tblBody += `<tbody class="table" id="customertablebody">
                                                 <tr>
                                                     <td><input type="Checkbox" id="${Temp[i].Itid}"></td>
                                                     <td> ${Temp[i].Itid}</td>
@@ -193,11 +160,13 @@ function ILoad(search) {
                                                     <td style="${isexpired(Temp[i].Itbday)}
                                                 </tr>
                                             </tbody>`;
+                        }
                     };
                     tblCustomer.innerHTML = tblBody;
                 }
-            document.getElementById("Username").value = "";
+            }
         }
+        document.getElementById("Username").value = "";
     }
     if (document.getElementById("result").innerHTML == null) {
         window.alert("No item Found with that name or ID or category");
@@ -216,9 +185,11 @@ function Place() {
         date = (currentYear + "-" + currentMonthValue + "-" + currentMonthDate);
         FOrder.push({ index, Cuid, Orid, Order, date, Price });
         localStorage.setItem("Order", JSON.stringify(FOrder));
+        Generate({ index, Cuid, Orid, Order, date, Price });
         Iupdate(Order);
         generate();
         clearInput();
+
         document.getElementById("result").innerHTML = "";
         Order = [];
     }
@@ -229,6 +200,7 @@ function Place() {
 
 function Add() {
     let Totalprice;
+    True = true;
     if (oneresult != null && document.getElementById("Cuid").value != "") {
         Cuid = document.getElementById("Cuid").value;
         Cuname = document.getElementById("Cuname").value;
@@ -258,7 +230,7 @@ function Add() {
             }
             else {
                 for (let i = 0; i < temp.length; i++) {
-                    if (temp[i].Itcategory == search) {
+                    if (temp[i].Itcategory == search || search == "all") {
                         if (document.getElementById(temp[i].Itid).checked) {
                             Itid = temp[i].Itid;
                             Itname = temp[i].Itname;
@@ -308,7 +280,7 @@ function Delete() {
 
 function Search() {
     search = document.getElementById("Username").value;
-    ILoad(search.toLowerCase());
+    ILoad(search);
 
 }
 
@@ -548,7 +520,7 @@ function showTotal(order) {
         temp = JSON.parse(localStorage.getItem("Item"))
         for (let i = 0; i < temp.length; i++) {
             if (element.Itid == temp[i].Itid) {
-                txt += temp[i].Itname + " Rs." + temp[i].Itprice + " " + element.qty + " Rs." + element.Netprice + "\n";
+                txt += temp[i].Itname + "\tRs." + temp[i].Itprice + " " + element.qty + " Rs." + element.Netprice + "\n";
                 total += Number(element.Netprice);
             }
         }
@@ -687,4 +659,108 @@ function Update() {
         }
     };
     localStorage.setItem("Order", JSON.stringify(temporder));
+}
+
+function Generate(order){
+    temp = order.Order;
+    temp.push({Itid:"",Itname:"Total",qty:"",Netprice:Number(order.Price),Totalprice:""})
+    console.log(temp);
+    var prop = {
+        outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
+        returnJsPDFDocObject: true,
+        fileName: "Bill",
+        orientationLandscape: false,
+        compress: true,
+        logo: {
+            src: "Untitled-4.png",
+            type: 'PNG', //optional, when src= data:uri (nodejs case)
+            width: 40, //aspect ratio = width/height
+            height: 30,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        stamp: {
+            inAllPages: true, //by default = false, just in the last page
+            src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+            type: 'JPG', //optional, when src= data:uri (nodejs case)
+            width: 20, //aspect ratio = width/height
+            height: 20,
+            margin: {
+                top: 0, //negative or positive num, from the current position
+                left: 0 //negative or positive num, from the current position
+            }
+        },
+        business: {
+            name: "BQ Burgers",
+            address: "Icet Panadura.",
+            phone: "(+94) 76 488 7732",
+            email: "BQBurgers@gmail.com",
+            website: "www.BQBurgers.com",
+        },
+        contact: {
+            label: "Bill for: "+order.Cuid,
+            label: "Order Id: "+order.Orid,
+        },
+        invoice: {
+            invDate: currentdate+"",
+            headerBorder: false,
+            tableBodyBorder: false,
+            header: [
+                {
+                    title: "Item ID",
+                    style: {
+                        width: 50
+                    }
+                },
+                {
+                    title: "Item name",
+                    style: {
+                        width: 80
+                    }
+                },
+                { title: "qty" },
+                { title: "Total Price" },
+                { title: "Net Price" }
+            ],
+            table: Array.from(Array(temp.length), (item, index) => ([
+                temp[index].Itid,
+                temp[index].Itname,
+                temp[index].qty,
+                temp[index].Totalprice,
+                String(temp[index].Netprice)
+            ])),
+            additionalRows: [{
+                col1: 'Total:',
+                col2: '145,250.50',
+                col3: 'ALL',
+                style: {
+                    fontSize: 14 //optional, default 12
+                }
+            },
+            {
+                col1: 'VAT:',
+                col2: '20',
+                col3: '%',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            },
+            {
+                col1: 'SubTotal:',
+                col2: '116,199.90',
+                col3: 'ALL',
+                style: {
+                    fontSize: 10 //optional, default 12
+                }
+            }],
+        },
+        footer: {
+            text: "The report is created on a computer and is valid without the signature and stamp.",
+        },
+        pageEnable: true,
+        pageLabel: "Page ",
+    };
+    var pdfObject = jsPDFInvoiceTemplate.default(prop);
 }
