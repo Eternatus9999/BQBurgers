@@ -298,8 +298,8 @@ function calculate(order) {
 }
 
 function Iupdate(order) {
+    temp = JSON.parse(localStorage.getItem("Item"));
     order.forEach(element => {
-        temp = JSON.parse(localStorage.getItem("Item"));
         for (let i = 0; i < temp.length; i++) {
             if (temp[i].Itid == element.Itid) {
                 temp[i].Itqty -= element.qty;
