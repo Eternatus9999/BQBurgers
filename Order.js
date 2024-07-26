@@ -700,8 +700,7 @@ function Generate(order){
             website: "www.BQBurgers.com",
         },
         contact: {
-            label: "Bill for: "+order.Cuid,
-            label: "Order Id: "+order.Orid,
+            label: "Bill for: "+order.Cuid+"\nOrder Id: "+order.Orid,
         },
         invoice: {
             invDate: currentdate+"",
