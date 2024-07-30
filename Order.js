@@ -577,7 +577,7 @@ function UpdateSearch() {
     search = document.getElementById("Username").value;
     temp = JSON.parse(localStorage.getItem("Order")) || [];
     temp.forEach(element => {
-        if (search == element.Orid || search == element.Cuid) {
+        if (search == element.Orid) {
             document.getElementById("Cuid").innerHTML = element.Cuid;
             document.getElementById("Orid").innerHTML = element.Orid;
             let tblCustomer = document.getElementById("result");
@@ -611,18 +611,21 @@ function Update() {
     search = document.getElementById("Username").value;
     temporder = JSON.parse(localStorage.getItem("Order")) || [];
     temporder.forEach(element => {
-        if (search == element.Orid || search == element.Cuid) {
+        if (search == element.Orid) {
             let Temp = element.Order;
             for (let i = 0; i < Temp.length; i++) {
                 const element = Temp[i];
                 price = Number(element.Totalprice / element.qty);
                 netprice = Number(element.Netprice / element.qty);
+                console.log(element.Itid);
                 element.qty = document.getElementById(element.Itid).value;
+                console.log(document.getElementById(element.Itid));
                 qty = document.getElementById(element.Itid).value;
                 element.Totalprice = price * qty;
                 element.Netprice = netprice * qty;
 
             }
+            element.Order = Temp;
             for (let i = 0; i < Temp.length; i++) {
                 const element = Temp[i];
                 if (document.getElementById(element.Itname).checked) {
