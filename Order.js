@@ -242,7 +242,7 @@ function Add() {
                                 window.alert("Dosn't have that much in the stock");
                                 True = false;
                             }
-                            else if(Validdate(temp[i].Itbday)){
+                            else if(!Validdate(temp[i].Itbday)){
                                 window.alert("Item is Expired!");
                                 True = false;
                             }
