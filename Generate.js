@@ -817,9 +817,7 @@ function checkmonth(temp) {
         const year = Number(element.date.substring(0, 4));
         const month = Number(element.date.substring(5, 7));
         const day = Number(element.date.substring(8));
-        console.log(month+" "+currentMonthValue);
         if (year == currentYear && month == currentMonthValue) {
-            console.log(month+" "+currentMonthValue);
             Temp.push(element);
         }
     });
