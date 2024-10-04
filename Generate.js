@@ -365,219 +365,231 @@ localStorage.setItem("Ord",JSON.stringify(Ord)); //to check the validation set t
 
 function MonthlyGenerate() {
     temp = checkmonth(JSON.parse(localStorage.getItem("Order")));
-    var prop = {
-        outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
-        returnJsPDFDocObject: true,
-        fileName: "Monthly Report of " + month + "",
-        orientationLandscape: false,
-        compress: true,
-        logo: {
-            src: "Untitled-4.png",
-            type: 'PNG', //optional, when src= data:uri (nodejs case)
-            width: 40, //aspect ratio = width/height
-            height: 30,
-            margin: {
-                top: 0, //negative or positive num, from the current position
-                left: 0 //negative or positive num, from the current position
-            }
-        },
-        stamp: {
-            inAllPages: true, //by default = false, just in the last page
-            src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-            type: 'JPG', //optional, when src= data:uri (nodejs case)
-            width: 20, //aspect ratio = width/height
-            height: 20,
-            margin: {
-                top: 0, //negative or positive num, from the current position
-                left: 0 //negative or positive num, from the current position
-            }
-        },
-        business: {
-            name: "BQ Burgers",
-            address: "Icet Panadura.",
-            phone: "(+94) 76 488 7732",
-            email: "BQBurgers@gmail.com",
-            website: "www.BQBurgers.com",
-        },
-        contact: {
-            label: "Report issued for:",
-            address: "Icet Panadura.",
-            phone: "(+94) 76 488 77322",
-            email: "BQBurgers@gmail.com",
-            otherInfo: "www.BQBurgers.com",
-        },
-        invoice: {
-            invDate: currentMonthValue + "/" + currentYear,
-            headerBorder: false,
-            tableBodyBorder: false,
-            header: [
-                {
-                    title: "#",
-                    style: {
-                        width: 10
-                    }
-                },
-                {
-                    title: "Order ID",
-                    style: {
-                        width: 50
-                    }
-                },
-                {
-                    title: "Order Date",
-                    style: {
-                        width: 80
-                    }
-                },
-                { title: "Total" }
-            ],
-            table: Array.from(Array(temp.length), (item, index) => ([
-                index + 1,
-                temp[index].Orid,
-                temp[index].date,
-                temp[index].Price
-            ])),
-            additionalRows: [{
-                col1: 'Total:',
-                col2: '145,250.50',
-                col3: 'ALL',
-                style: {
-                    fontSize: 14 //optional, default 12
+    if(temp==null){
+        alert("No Orders Have been Done");
+    }
+    else{
+        var prop = {
+            outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
+            returnJsPDFDocObject: true,
+            fileName: "Monthly Report of " + month + "",
+            orientationLandscape: false,
+            compress: true,
+            logo: {
+                src: "Untitled-4.png",
+                type: 'PNG', //optional, when src= data:uri (nodejs case)
+                width: 40, //aspect ratio = width/height
+                height: 30,
+                margin: {
+                    top: 0, //negative or positive num, from the current position
+                    left: 0 //negative or positive num, from the current position
                 }
             },
-            {
-                col1: 'VAT:',
-                col2: '20',
-                col3: '%',
-                style: {
-                    fontSize: 10 //optional, default 12
+            stamp: {
+                inAllPages: true, //by default = false, just in the last page
+                src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+                type: 'JPG', //optional, when src= data:uri (nodejs case)
+                width: 20, //aspect ratio = width/height
+                height: 20,
+                margin: {
+                    top: 0, //negative or positive num, from the current position
+                    left: 0 //negative or positive num, from the current position
                 }
             },
-            {
-                col1: 'SubTotal:',
-                col2: '116,199.90',
-                col3: 'ALL',
-                style: {
-                    fontSize: 10 //optional, default 12
-                }
-            }],
-        },
-        footer: {
-            text: "The report is created on a computer and is valid without the signature and stamp.",
-        },
-        pageEnable: true,
-        pageLabel: "Page ",
-    };
-    var pdfObject = jsPDFInvoiceTemplate.default(prop);
+            business: {
+                name: "BQ Burgers",
+                address: "Icet Panadura.",
+                phone: "(+94) 76 488 7732",
+                email: "BQBurgers@gmail.com",
+                website: "www.BQBurgers.com",
+            },
+            contact: {
+                label: "Report issued for:",
+                address: "Icet Panadura.",
+                phone: "(+94) 76 488 77322",
+                email: "BQBurgers@gmail.com",
+                otherInfo: "www.BQBurgers.com",
+            },
+            invoice: {
+                invDate: currentMonthValue + "/" + currentYear,
+                headerBorder: false,
+                tableBodyBorder: false,
+                header: [
+                    {
+                        title: "#",
+                        style: {
+                            width: 10
+                        }
+                    },
+                    {
+                        title: "Order ID",
+                        style: {
+                            width: 50
+                        }
+                    },
+                    {
+                        title: "Order Date",
+                        style: {
+                            width: 80
+                        }
+                    },
+                    { title: "Total" }
+                ],
+                table: Array.from(Array(temp.length), (item, index) => ([
+                    index + 1,
+                    temp[index].Orid,
+                    temp[index].date,
+                    temp[index].Price
+                ])),
+                additionalRows: [{
+                    col1: 'Total:',
+                    col2: '145,250.50',
+                    col3: 'ALL',
+                    style: {
+                        fontSize: 14 //optional, default 12
+                    }
+                },
+                {
+                    col1: 'VAT:',
+                    col2: '20',
+                    col3: '%',
+                    style: {
+                        fontSize: 10 //optional, default 12
+                    }
+                },
+                {
+                    col1: 'SubTotal:',
+                    col2: '116,199.90',
+                    col3: 'ALL',
+                    style: {
+                        fontSize: 10 //optional, default 12
+                    }
+                }],
+            },
+            footer: {
+                text: "The report is created on a computer and is valid without the signature and stamp.",
+            },
+            pageEnable: true,
+            pageLabel: "Page ",
+        };
+        var pdfObject = jsPDFInvoiceTemplate.default(prop);
+    }
+    
 
 }
 
 function AnnualGenerate() {
     temp = checkyear(JSON.parse(localStorage.getItem("Order")));
-    var prop = {
-        outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
-        returnJsPDFDocObject: true,
-        fileName: "Anual report of " + currentYear,
-        orientationLandscape: false,
-        compress: true,
-        logo: {
-            src: "Untitled-4.png",
-            type: 'PNG', //optional, when src= data:uri (nodejs case)
-            width: 40, //aspect ratio = width/height
-            height: 30,
-            margin: {
-                top: 0, //negative or positive num, from the current position
-                left: 0 //negative or positive num, from the current position
-            }
-        },
-        stamp: {
-            inAllPages: true, //by default = false, just in the last page
-            src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-            type: 'JPG', //optional, when src= data:uri (nodejs case)
-            width: 20, //aspect ratio = width/height
-            height: 20,
-            margin: {
-                top: 0, //negative or positive num, from the current position
-                left: 0 //negative or positive num, from the current position
-            }
-        },
-        business: {
-            name: "BQ Burgers",
-            address: "Icet Panadura.",
-            phone: "(+94) 76 488 7732",
-            email: "BQBurgers@gmail.com",
-            website: "www.BQBurgers.com",
-        },
-        contact: {
-            label: "Report issued for:",
-            address: "Icet Panadura.",
-            phone: "(+94) 76 488 77322",
-            email: "BQBurgers@gmail.com",
-            otherInfo: "www.BQBurgers.com",
-        },
-        invoice: {
-            invDate: String(currentYear),
-            headerBorder: false,
-            tableBodyBorder: false,
-            header: [
-                {
-                    title: "#",
-                    style: {
-                        width: 10
-                    }
-                },
-                {
-                    title: "Order ID",
-                    style: {
-                        width: 50
-                    }
-                },
-                {
-                    title: "Order Date",
-                    style: {
-                        width: 80
-                    }
-                },
-                { title: "Total" }
-            ],
-            table: Array.from(Array(temp.length), (item, index) => ([
-                index + 1,
-                temp[index].Orid,
-                temp[index].date,
-                temp[index].Price
-            ])),
-            additionalRows: [{
-                col1: 'Total:',
-                col2: '145,250.50',
-                col3: 'ALL',
-                style: {
-                    fontSize: 14 //optional, default 12
+    if(temp==null){
+        alert("No Orders Have been Done");
+    }
+    else{
+        var prop = {
+            outputType: jsPDFInvoiceTemplate.Save, //Allows for additional configuration prior to writing among others, adds support for different languages and symbols
+            returnJsPDFDocObject: true,
+            fileName: "Anual report of " + currentYear,
+            orientationLandscape: false,
+            compress: true,
+            logo: {
+                src: "Untitled-4.png",
+                type: 'PNG', //optional, when src= data:uri (nodejs case)
+                width: 40, //aspect ratio = width/height
+                height: 30,
+                margin: {
+                    top: 0, //negative or positive num, from the current position
+                    left: 0 //negative or positive num, from the current position
                 }
             },
-            {
-                col1: 'VAT:',
-                col2: '20',
-                col3: '%',
-                style: {
-                    fontSize: 10 //optional, default 12
+            stamp: {
+                inAllPages: true, //by default = false, just in the last page
+                src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+                type: 'JPG', //optional, when src= data:uri (nodejs case)
+                width: 20, //aspect ratio = width/height
+                height: 20,
+                margin: {
+                    top: 0, //negative or positive num, from the current position
+                    left: 0 //negative or positive num, from the current position
                 }
             },
-            {
-                col1: 'SubTotal:',
-                col2: '116,199.90',
-                col3: 'ALL',
-                style: {
-                    fontSize: 10 //optional, default 12
-                }
-            }],
-        },
-        footer: {
-            text: "The report is created on a computer and is valid without the signature and stamp.",
-        },
-        pageEnable: true,
-        pageLabel: "Page ",
-    };
-    var pdfObject = jsPDFInvoiceTemplate.default(prop);
+            business: {
+                name: "BQ Burgers",
+                address: "Icet Panadura.",
+                phone: "(+94) 76 488 7732",
+                email: "BQBurgers@gmail.com",
+                website: "www.BQBurgers.com",
+            },
+            contact: {
+                label: "Report issued for:",
+                address: "Icet Panadura.",
+                phone: "(+94) 76 488 77322",
+                email: "BQBurgers@gmail.com",
+                otherInfo: "www.BQBurgers.com",
+            },
+            invoice: {
+                invDate: String(currentYear),
+                headerBorder: false,
+                tableBodyBorder: false,
+                header: [
+                    {
+                        title: "#",
+                        style: {
+                            width: 10
+                        }
+                    },
+                    {
+                        title: "Order ID",
+                        style: {
+                            width: 50
+                        }
+                    },
+                    {
+                        title: "Order Date",
+                        style: {
+                            width: 80
+                        }
+                    },
+                    { title: "Total" }
+                ],
+                table: Array.from(Array(temp.length), (item, index) => ([
+                    index + 1,
+                    temp[index].Orid,
+                    temp[index].date,
+                    temp[index].Price
+                ])),
+                additionalRows: [{
+                    col1: 'Total:',
+                    col2: '145,250.50',
+                    col3: 'ALL',
+                    style: {
+                        fontSize: 14 //optional, default 12
+                    }
+                },
+                {
+                    col1: 'VAT:',
+                    col2: '20',
+                    col3: '%',
+                    style: {
+                        fontSize: 10 //optional, default 12
+                    }
+                },
+                {
+                    col1: 'SubTotal:',
+                    col2: '116,199.90',
+                    col3: 'ALL',
+                    style: {
+                        fontSize: 10 //optional, default 12
+                    }
+                }],
+            },
+            footer: {
+                text: "The report is created on a computer and is valid without the signature and stamp.",
+            },
+            pageEnable: true,
+            pageLabel: "Page ",
+        };
+        var pdfObject = jsPDFInvoiceTemplate.default(prop);
+    }
+    
 }
 
 function ItemCount() {
@@ -803,9 +815,11 @@ function checkmonth(temp) {
     let Temp = [];
     temp.forEach(element => {
         const year = Number(element.date.substring(0, 4));
-        const month = Number(element.date.substring(5, 6));
+        const month = Number(element.date.substring(5, 7));
         const day = Number(element.date.substring(8));
+        console.log(month+" "+currentMonthValue);
         if (year == currentYear && month == currentMonthValue) {
+            console.log(month+" "+currentMonthValue);
             Temp.push(element);
         }
     });
